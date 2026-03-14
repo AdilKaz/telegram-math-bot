@@ -1,26 +1,33 @@
-from sympy import sympify, solve, symbols, diff, integrate
+from sympy import symbols, solve, diff, integrate, latex
+from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application
 
+# Symbol
 x = symbols('x')
 
-def solve_expression(expr: str):
+# SymPy parser with implicit multiplication
+transformations = standard_transformations + (implicit_multiplication_application,)
+
+def parse_math(expr: str):
+    """Parse user input like '2x^2 + 3x' into SymPy expression."""
     expr = expr.replace("^", "**")
-    return sympify(expr).evalf()
+    return parse_expr(expr, transformations=transformations)
+
+def solve_expression(expr: str):
+    e = parse_math(expr)
+    return e.evalf()
 
 def solve_equation(expr: str):
-    expr = expr.replace("^", "**")
-
     if "=" in expr:
         left, right = expr.split("=")
-        expr = sympify(left) - sympify(right)
+        e = parse_math(left) - parse_math(right)
     else:
-        expr = sympify(expr)
-
-    return solve(expr, x)
+        e = parse_math(expr)
+    return solve(e, x)
 
 def derivative(expr: str):
-    expr = expr.replace("^", "**")
-    return diff(sympify(expr), x)
+    e = parse_math(expr)
+    return diff(e, x)
 
 def integral(expr: str):
-    expr = expr.replace("^", "**")
-    return integrate(sympify(expr), x)
+    e = parse_math(expr)
+    return integrate(e, x)
