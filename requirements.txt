@@ -1,0 +1,3 @@
+aiogram
+sympy
+python-dotenv
