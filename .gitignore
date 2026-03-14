@@ -1,14 +1,24 @@
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Logs
 *.log
 
-# Virtual environment
+# Virtual environments
 venv/
 env/
+.venv/
+
+# Environment variables
 .env
+.env.*
 
 # IDE files
 .idea/
@@ -19,3 +29,16 @@ env/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Python testing
+.pytest_cache/
+.coverage
+
+# Type checker
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Telegram bot session files
+*.session
